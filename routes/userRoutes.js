@@ -82,6 +82,18 @@ route.post('/addUser', jsonParser , (req,res) => {
 
 })
 
+route.get('/user',ensureToken,verifyToken, jsonParser, async function(req,res)
+{
+    try{
+        await User.findOne({username: req.body.username}, (err,docs)=>{
+            res.send(docs);
+        }).clone();
+    }catch(err) {
+        res.send({Message:"something went wrong" + err})
+    }
+
+})
+
 
 
 module.exports = route;
