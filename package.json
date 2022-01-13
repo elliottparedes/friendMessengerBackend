@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A simple messanger application backend",
   "engines": {
-    "node":"14.15.0"
+    "node": "14.15.0"
   },
   "main": "index.js",
   "scripts": {
@@ -13,7 +13,7 @@
   "author": "Elliott Paredes",
   "license": "MIT",
   "dependencies": {
-    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.1",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",

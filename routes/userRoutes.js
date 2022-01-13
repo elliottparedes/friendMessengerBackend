@@ -10,7 +10,7 @@ const verifyToken = auth.verifyToken;
 const ensureToken = auth.ensureToken;
 
 //Bcrypt
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const saltRounds = 10;
 
 // create application/json parser
