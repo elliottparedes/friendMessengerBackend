@@ -84,8 +84,18 @@ route.post('/addUser', jsonParser , (req,res) => {
 
 route.get('/user',ensureToken,verifyToken, jsonParser, async function(req,res)
 {
+    
+    const bearerHeader = req.headers["authorization"];
+    const bearer = bearerHeader.split(" ");
+    const bearerToken = bearer[1];
+    const ourToken = bearerToken;
+
+    const decoded = jwt.verify(ourToken,process.env.SECRET);
+
     try{
-        await User.findOne({username: req.body.username}, (err,docs)=>{
+    
+        await User.findOne({username: decoded.user.username}, (err,docs)=>{
+            console.log(docs)
             res.send(docs);
         }).clone();
     }catch(err) {
