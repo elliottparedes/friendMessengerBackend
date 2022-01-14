@@ -64,6 +64,7 @@ route.post('/addUser', jsonParser , (req,res) => {
        
         const user = new User({
         username:req.body.username,
+        email: req.body.email,
         password:hash
         
     });

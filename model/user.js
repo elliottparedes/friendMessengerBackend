@@ -8,10 +8,16 @@ const userSchema = new Schema ({
         type:String,
         required:true
     },
+    email: {
+        type:String,
+        required:true
+
+    },
     password: {
         type: String, 
-        required: false
-    }
+        required: true
+    },
+
 }, {timestamps:true});
 
 const User = mongoose.model("User", userSchema);
