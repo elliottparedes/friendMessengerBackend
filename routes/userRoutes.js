@@ -29,11 +29,11 @@ route.get('/protected',ensureToken, verifyToken, function(req,res){
 route.post('/login', jsonParser, async function(req,res){
     // auth user 
     try{
-            await User.find({username: req.body.username}, (err, docs) =>{
+            await User.find({email: req.body.email}, (err, docs) =>{
                 if(docs.length!=0)
                 {
                         console.log(docs);
-                        const user = {username:req.body.username};
+                        const user = {email:req.body.email};
                         const token = jwt.sign({user},process.env.SECRET, {expiresIn: "1h"} );
                         res.json({token:token});
                 } else { 
