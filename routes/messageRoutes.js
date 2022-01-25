@@ -38,7 +38,7 @@ route.post('/sendMessage', jsonParser, ensureToken, verifyToken , (req,res) => {
     let responseArray = [];
     try{
 
-            await Message.find({ sender:req.body.sender, receiver: req.body.receiver}, (err,docs)=>{
+            await Message.find({ sender:req.body.sender}, (err,docs)=>{
           
             responseArray = docs;
             console.log(responseArray);
