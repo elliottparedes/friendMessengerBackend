@@ -33,7 +33,7 @@ route.post('/sendMessage', jsonParser, ensureToken, verifyToken , (req,res) => {
         console.log(err));
 })
 
- route.get('/getMessages',ensureToken,verifyToken,jsonParser, async(req,res) => {
+ route.post('/getMessages',ensureToken,verifyToken,jsonParser, async(req,res) => {
 
     let responseArray = [];
     try{
