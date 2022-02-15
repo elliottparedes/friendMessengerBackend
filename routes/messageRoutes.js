@@ -35,33 +35,25 @@ route.post('/sendMessage', jsonParser, ensureToken, verifyToken , (req,res) => {
 
  route.post('/getMessages',ensureToken,verifyToken,jsonParser, async(req,res) => {
 
-    let senderResponseArray = [];
-    let receiverResponseArray = [];
-    let totalArray = [];
+ 
+    let responseArray = [];
+
     try{
 
-            await Message.find({ sender:req.body.sender}, (err,docs)=>{
+            await Message.find({ $or: [{sender:req.body.sender}, {receiver:req.body.receiver}]}, (err,docs)=>{
           
-            senderResponseArray = docs;
-            console.log(senderResponseArray);
+            responseArray = docs;
+            console.log(responseArray);
             console.log("There was an error: " + err);
             
             }).clone();
 
-            await Message.find({ receiver:req.body.receiver}, (err,docs)=>{
-          
-                receiverResponseArray = docs;
-                console.log(receiverResponseArray);
-                console.log("There was an error: " + err);
-                
-                }).clone();
-
-            totalArray = senderResponseArray.concat(receiverResponseArray);
+           
 
 
-    if(totalArray.length==0)
+    if(responseArray.length==0)
         res.send({"Error":"You have made this query too many times in succession. Please wait"})        
-    else res.send(totalArray);
+    else res.send(responseArray);
     }catch (err) {
         console.log('error', err)
         res.status(500).json({error:'There was a Server Side Error!'})
