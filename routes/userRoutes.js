@@ -35,7 +35,7 @@ route.post('/login', jsonParser, async function(req,res){
                         console.log(docs);
                         const user = {email:req.body.email};
                         const token = jwt.sign({user},process.env.SECRET, {expiresIn: "1h"} );
-                        res.json({token:token});
+                        res.json({token:token, username:docs[0].username });
                 } else { 
                     console.log("Could not find username");
                     res.json({Message:"Could not find username in Database"});
