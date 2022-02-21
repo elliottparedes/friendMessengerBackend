@@ -8,7 +8,7 @@ const messageSchema = new Schema({
         
     },
     conversationId:{
-        type:mongoose.Schema.Types.ObjectId, ref: 'conversation'
+        type:String,
     },
     sender: {
         type: String, 
