@@ -22,7 +22,7 @@ route.post('/sendMessage', jsonParser, ensureToken, verifyToken , (req,res) => {
     const message = new Message({
         body:req.body.message,
         sender:req.body.sender,
-        receiver: req.body.receiver
+        conversationId:req.body.id  
     });
 
     message.save()
@@ -40,7 +40,7 @@ route.post('/sendMessage', jsonParser, ensureToken, verifyToken , (req,res) => {
 
     try{
 
-            await Message.find({ $or: [{sender:req.body.sender}, {receiver:req.body.receiver}]}, (err,docs)=>{
+            await Message.find({conversationId:req.body.id}, (err,docs)=>{
           
             responseArray = docs;
             console.log(responseArray);

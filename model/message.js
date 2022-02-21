@@ -4,17 +4,17 @@ const Schema = mongoose.Schema;
 const messageSchema = new Schema({
     body: {
         type: String,
-        required:true
+        
+        
+    },
+    conversationId:{
+        type:mongoose.Schema.Types.ObjectId, ref: 'conversation'
     },
     sender: {
         type: String, 
-        required: true
+        
     },
-    receiver: {
-        type:String, 
-        required:true
-    }
-},{timestamps:true });
+    dateCreated:Date });
 
 
 // Schema is what defines the structure of the documents that will be added to the database

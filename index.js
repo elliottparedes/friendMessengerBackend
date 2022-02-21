@@ -43,4 +43,7 @@ app.use(messageRoutes);
 var userRoutes = require("./routes/userRoutes");
 app.use(userRoutes);
 
+var conversationRoutes = require("./routes/conversationRoutes");
+app.use(conversationRoutes);
+
 
