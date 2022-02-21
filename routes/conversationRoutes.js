@@ -38,7 +38,7 @@ route.post('/getConversations',ensureToken,verifyToken,jsonParser, async(req,res
 
     try{
 
-            await Message.find({participants:req.body.participant}, (err,docs)=>{
+            await Conversation.find({participants:req.body.participant}, (err,docs)=>{
           
             responseArray = docs;
             console.log(responseArray);
