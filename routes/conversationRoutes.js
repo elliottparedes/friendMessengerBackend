@@ -26,6 +26,7 @@ route.post('/createConversation', jsonParser, ensureToken, verifyToken , (req,re
     conversation.save()
         .then((result) => {
             res.send(result);
+            console.log(result);
         })
         .catch((err) => 
         console.log(err));
