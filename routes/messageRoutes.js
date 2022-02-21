@@ -8,6 +8,7 @@ const auth = require('../auth');
 const verifyToken = auth.verifyToken;
 const ensureToken = auth.ensureToken;
 
+ObjectId = require('mongodb').ObjectID;
 
 // create application/json parser
 var jsonParser = bodyParser.json()
@@ -40,7 +41,7 @@ route.post('/sendMessage', jsonParser, ensureToken, verifyToken , (req,res) => {
 
     try{
 
-            await Message.find({conversationId:req.body.id}, (err,docs)=>{
+            await Message.find({conversationId:ObjectId(req.body.id)}, (err,docs)=>{
           
             responseArray = docs;
             console.log(responseArray);
