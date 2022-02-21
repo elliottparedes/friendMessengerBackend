@@ -31,4 +31,32 @@ route.post('/createConversation', jsonParser, ensureToken, verifyToken , (req,re
         console.log(err));
 })
 
+route.post('/getConversations',ensureToken,verifyToken,jsonParser, async(req,res) => {
+
+ 
+    let responseArray = [];
+
+    try{
+
+            await Message.find({participants:req.body.participant}, (err,docs)=>{
+          
+            responseArray = docs;
+            console.log(responseArray);
+            console.log("There was an error: " + err);
+            
+            }).clone();
+
+           
+
+
+    if(responseArray.length==0)
+        res.send({"Error":"You have made this query too many times in succession. Please wait"})        
+    else res.send(responseArray);
+    }catch (err) {
+        console.log('error', err)
+        res.status(500).json({error:'There was a Server Side Error!'})
+    }
+
+})
+
 module.exports = route;
