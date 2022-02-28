@@ -18,7 +18,7 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 
 route.post('/createConversation', jsonParser, ensureToken, verifyToken , (req,res) => {
-    console.log(req.body.participants);
+    
     const conversation = new Conversation({
         participants: req.body.participants        
     });
@@ -58,6 +58,18 @@ route.post('/getConversations',ensureToken,verifyToken,jsonParser, async(req,res
         res.status(500).json({error:'There was a Server Side Error!'})
     }
 
+})
+
+route.post('/deleteConversation',ensureToken,verifyToken,jsonParser, async(req,res) => {
+    try{
+        await Conversation.deleteOne({_id:req.body.id})
+        res.status(200).json({message:"Deleted the conersation:" +req.body.id })
+    }catch(e)
+    {
+        console.log("there was an issue deleting this convoersation : " + e)
+    }
+    
+    
 })
 
 module.exports = route;
