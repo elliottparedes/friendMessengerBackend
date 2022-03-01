@@ -44,7 +44,7 @@ route.post('/getConversations',ensureToken,verifyToken,jsonParser, async(req,res
             responseArray = docs;
             console.log(responseArray);
             console.log("There was an error: " + err);
-            
+            res.send(responseArray);
             }).clone();
 
            

@@ -46,7 +46,7 @@ route.post('/sendMessage', jsonParser, ensureToken, verifyToken , (req,res) => {
             responseArray = docs;
             console.log(responseArray);
             console.log("There was an error: " + err);
-            
+            res.send(responseArray);
             }).clone();
 
            
