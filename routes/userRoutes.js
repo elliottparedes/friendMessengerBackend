@@ -43,7 +43,7 @@ route.post('/login', jsonParser, async function(req,res){
                         
                 } else { 
                     console.log("Could not find username");
-                    res.json({Message:"Could not find username in Database"});
+                    res.json({message:"Could not find username in Database"});
                 }
             }).clone();
     }catch (err) {
