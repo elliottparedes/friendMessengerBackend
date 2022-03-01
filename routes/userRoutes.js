@@ -8,43 +8,38 @@ const route = express();
 const auth = require('../auth');
 const verifyToken = auth.verifyToken;
 const ensureToken = auth.ensureToken;
-
 //Bcrypt
 const bcrypt = require('bcryptjs');
 const saltRounds = 10;
-
 // create application/json parser
 var jsonParser = bodyParser.json()
- 
 // create application/x-www-form-urlencoded parser
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
-
-route.get('/protected',ensureToken, verifyToken, function(req,res){
-
+route.get('/protected',ensureToken, verifyToken, function(req,res)
+{
     console.log("yay you made it through the protected route");
-
 })
 
 route.post('/login', jsonParser, async function(req,res){
     // auth user 
     try{
-            await User.find({email: req.body.email.toLowerCase()}, (err, docs) =>{
-                if(docs.length!=0)
-                {
-                        
-                        console.log(docs);
-                        bcrypt.compare(req.body.password,docs[0].password,function (err,result) {
-                            if(result)
-                            {
-                                const user = {email:req.body.email.toLowerCase()};
-                                const token = jwt.sign({user},process.env.SECRET, {expiresIn: "1h"} );
-                                res.json({token:token, username:docs[0].username });
-                            }
-                            else{
-                                res.json({message:"password invalid"})
-                            }
-                        })
+         await User.find({email: req.body.email.toLowerCase()}, (err, docs) =>{
+            if(docs.length!=0)
+            {
+                console.log(docs);
+                bcrypt.compare(req.body.password,docs[0].password,function (err,result) {
+                    if(result)
+                    {
+                        const user = {email:req.body.email.toLowerCase()};
+                        const token = jwt.sign({user},process.env.SECRET, {expiresIn: "1h"} );
+                        res.json({token:token, username:docs[0].username });
+                    }
+                    else
+                    {
+                        res.json({message:"password invalid"})
+                    }
+                })
                         
                 } else { 
                     console.log("Could not find username");
