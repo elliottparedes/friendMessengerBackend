@@ -22,7 +22,7 @@ app.use(express.static('public'));
 
 const cors = require('cors');
 const corsOptions ={
-    origin:'https://sleepy-cori-8f1d07.netlify.app', 
+    origin:'http://localhost:3000', 
     credentials:true,            //access-control-allow-credentials:true
     optionSuccessStatus:200
 }
