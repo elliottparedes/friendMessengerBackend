@@ -50,9 +50,9 @@ route.post('/getConversations',ensureToken,verifyToken,jsonParser, async(req,res
            
 
 
-    if(responseArray.length==0)
-        res.send({"Error":"You have made this query too many times in succession. Please wait"})        
-    else res.send(responseArray);
+    // if(responseArray.length==0)
+    //     res.send({"Error":"You have made this query too many times in succession. Please wait"})        
+    // else res.send(responseArray);
     }catch (err) {
         console.log('error', err)
         res.status(500).json({error:'There was a Server Side Error!'})
