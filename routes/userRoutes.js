@@ -29,13 +29,23 @@ route.get('/protected',ensureToken, verifyToken, function(req,res){
 route.post('/login', jsonParser, async function(req,res){
     // auth user 
     try{
-            await User.find({email: req.body.email}, (err, docs) =>{
+            await User.find({email: req.body.email.toLowerCase()}, (err, docs) =>{
                 if(docs.length!=0)
                 {
+                        
                         console.log(docs);
-                        const user = {email:req.body.email};
-                        const token = jwt.sign({user},process.env.SECRET, {expiresIn: "1h"} );
-                        res.json({token:token, username:docs[0].username });
+                        bcrypt.compare(req.body.password,docs[0].password,function (err,result) {
+                            if(result)
+                            {
+                                const user = {email:req.body.email.toLowerCase()};
+                                const token = jwt.sign({user},process.env.SECRET, {expiresIn: "1h"} );
+                                res.json({token:token, username:docs[0].username });
+                            }
+                            else{
+                                res.json({message:"password invalid"})
+                            }
+                        })
+                        
                 } else { 
                     console.log("Could not find username");
                     res.json({Message:"Could not find username in Database"});
@@ -63,8 +73,8 @@ route.post('/addUser', jsonParser , (req,res) => {
     bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
        
         const user = new User({
-        username:req.body.username,
-        email: req.body.email,
+        username:req.body.username.toLowerCase(),
+        email: req.body.email.toLowerCase(),
         password:hash
         
     });
