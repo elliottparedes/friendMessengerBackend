@@ -52,9 +52,6 @@ route.post('/login', jsonParser, async function(req,res){
 
     }
 
-
-
-
 })
 
 
@@ -85,6 +82,27 @@ route.post('/addUser', jsonParser , (req,res) => {
 
       });
     
+
+})
+
+route.post('/checkUserName',jsonParser, async (req,res) =>
+{
+    try{
+    
+        await User.find({username:req.body.username}, (err,docs)=>{
+            if(docs.length===0)
+            {
+                
+                res.json({message:"available"});
+            }
+            
+            else{
+                res.json({message:"found"})
+            }
+        }).clone();
+    }catch(err) {
+        res.send({Message:"something went wrong" + err})
+    }
 
 })
 
