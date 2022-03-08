@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const route = express();
-
+// ensuring can push from new computer
 function ensureToken(req,res,next){
 
     const bearerHeader = req.headers["authorization"];
