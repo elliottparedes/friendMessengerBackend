@@ -1,17 +1,20 @@
 const express = require('express');
 const mongoose = require('mongoose');
-
 const Message =require('./model/message');
 const User = require('./model/user');
 
 require("dotenv").config();
 
+
 const app = express();
 
+io.on(`connection`, socket => {
+    console.log(socket.id)
+})
 
 const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.j3fag.mongodb.net/messages?retryWrites=true&w=majority`; 
 mongoose.connect(uri,{useNewUrlParser: true, useUnifiedTopology:true})
- .then((result) => {console.log('connected to db'); app.listen(process.env.PORT || 3000);})
+ .then((result) => {console.log('connected to db'); app.listen(process.env.PORT || 4000);})
  .catch((err) => console.log(err));
 
  app.set('view engine','ejs');
@@ -24,7 +27,7 @@ app.use(express.static('public'));
 // http://localhost:3000
 const cors = require('cors');
 const corsOptions ={
-    origin:'https://friendmessenger.netlify.app', 
+    origin:'http://localhost:3000', 
     credentials:true,            //access-control-allow-credentials:true
     optionSuccessStatus:200
 }
